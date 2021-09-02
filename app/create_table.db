@@ -1,0 +1,9 @@
+CREATE TABLE DBO_FIN_FACILITY(
+     APPLID varchar(2);
+     PRODID char(8);
+     CIFID char(10);
+     BRANCHID varchar(5);
+     IDFACILITY PRIMARY KEY varchar(13) not null;
+     AMOUNT decimal(18.2);
+     FLEXAMT decimal(18.2);
+);

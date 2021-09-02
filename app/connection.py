@@ -13,10 +13,14 @@ try:
     cursor = connection.cursor()
 
     # create table
-    create_tabele_query = ''' CREATE TABLE mobile (
-        ID INT PRIMARY KEY NOT NULL,
-        MODEL TEXT NOT NULL,
-        PRICE REAL
+    create_tabele_query = '''CREATE TABLE DBO_FIN_FACILITY(
+     APPLID varchar(2),
+     PRODID char(8),
+     CIFID char(10),
+     BRANCHID varchar(5),
+     IDFACILITY varchar(13) not null PRIMARY KEY,
+     AMOUNT decimal(18.2),
+     FLEXAMT decimal(18.2)
     ); '''
 
     cursor.execute(create_tabele_query)
