@@ -19,8 +19,8 @@ try:
      CIFID char(10),
      BRANCHID varchar(5),
      IDFACILITY varchar(13) not null PRIMARY KEY,
-     AMOUNT decimal(18.2),
-     FLEXAMT decimal(18.2)
+     AMOUNT decimal(18,2),
+     FLEXAMT decimal(18,2)
     ); '''
 
     cursor.execute(create_tabele_query)
