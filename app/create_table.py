@@ -1,5 +1,6 @@
 import psycopg2
 from psycopg2 import Error
+from sqlalchemy.engine import create_engine
 
 def create_tabel():
     try:
@@ -69,3 +70,4 @@ def create_tabel():
             connection.close()
             print("Close Connection")
 
+create_tabel()

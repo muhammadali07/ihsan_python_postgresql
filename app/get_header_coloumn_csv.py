@@ -15,3 +15,4 @@ def get_name_coloumn():
     textfile.close()
 
 
+get_name_coloumn()
