@@ -85,7 +85,7 @@ def import_to_db():
         cursor.close()
         print('Data successfuly upload to db')
     except (Exception, Error) as error:
-        print("Erro to connection databae", error)
+        print("Error to connection databae", error)
     finally:
         if(connection):
             cursor.close()

@@ -1,6 +1,9 @@
 import psycopg2
 from fpdf import FPDF
 import psycopg2.extras
+from psycopg2 import Error
+import pandas as pd
+import psycopg2 as ps
 
 conn = psycopg2.connect(
             user="root",
@@ -16,20 +19,35 @@ def convert_to_file_csv():
         sql = " COPY (select * from dbo_fin_facility) TO STDOUT WITH CSV HEADER DELIMITER ';' "
         with open(t_download_file, 'w') as file:
             cursor.copy_expert(sql, file)
-            print("Succesfully export file")
+            print("Successfully export data to CSV")
     except psycopg2.Error as e:
         print("Still failed to export file")
 
-def convert_to_file_excel():
+convert_to_file_csv()
+
+def convert_to_excel():
     try:
+        conn = ps.connect(
+            user="root",
+            password="root",
+            host="localhost",
+            port=5432,
+            database="test_db")
+
         cursor = conn.cursor()
-        t_download_file = "downloads/xls/down_dbo_fin_facility.xls"
-        sql = " COPY (select * from dbo_fin_facility) TO STDOUT WITH CSV HEADER DELIMITER ';' "
-        with open(t_download_file, 'w') as file:
-            cursor.copy_expert(sql, file)
-            print("Succesfully export file")
-    except psycopg2.Error as e:
-        print("Still failed to export file")
+
+        df = pd.read_sql_query('select * from dbo_fin_facility', conn)
+        with pd.ExcelWriter('downloads/xls/dbo_fin_facility.xlsx') as writer:
+            df.to_excel(writer, sheet_name="data_dbo_fin_facility")
+            print("Successfully export data to Excell")
+    except (Exception, Error) as error:
+        print("Error ", error)
+    finally:
+        if(conn):
+            cursor.close()
+            conn.close()
+
+convert_to_excel()
 
 
 def convert_to_file_pdf():
@@ -73,7 +91,5 @@ def convert_to_file_pdf():
         cursor.close()
         conn.close()
 
-convert_to_file_csv()
-convert_to_file_excel()
 convert_to_file_pdf()
         
