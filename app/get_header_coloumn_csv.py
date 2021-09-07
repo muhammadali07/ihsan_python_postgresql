@@ -5,7 +5,9 @@ import pandas as pd
 def get_name_coloumn():
     df = pd.read_csv("file/DBO_FIN_FACILITY.csv")
     df.head()
-    df.columns =[x.lower() for x in df.columns]
+    df.columns = [x.lower().replace(" ", "").replace("?","") \
+                            .replace("-","_").replace(r"/","_").replace("\\","_").replace("%","") \
+                            .replace(")","").replace(r"(","") for x in df.columns]
     lst = list(df.columns)
 
     # covert to txt file to get name coloumn from data csv file
